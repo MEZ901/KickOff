@@ -1,41 +1,45 @@
 import MatchCard from "@/components/MatchCard";
 import { useFixturesQuery } from "@/redux/service/match/matchApi";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView, Switch, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const matches = [
-  {
-    id: 1,
-    teamOneName: "Barcelona",
-    teamOneLogo:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png",
-    teamTwoName: "Manchester United",
-    teamTwoLogo:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/800px-Manchester_United_FC_crest.svg.png",
-    time: "18:00",
-  },
-  {
-    id: 2,
-    teamOneName: "Barcelona",
-    teamOneLogo:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png",
-    teamTwoName: "Manchester United",
-    teamTwoLogo:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/800px-Manchester_United_FC_crest.svg.png",
-    time: "18:00",
-  },
-];
-
 export default function Home() {
   const [isEnabledLive, setIsEnabledLive] = useState(false);
+  const [matches, setMatches] = useState([] as any[]);
+
+  const { isLoading, data, isSuccess, isFetching, refetch } =
+    useFixturesQuery("");
+
   const toggleSwitch = () =>
     setIsEnabledLive((previousState) => !previousState);
 
-  const handleMatchCardPress = () => {
+  const handleMatchCardPress = (id: number) => {
+    console.log(id);
     router.push("/matchDetails" as any);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setMatches(data.data);
+    }
+  }, [isFetching]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <SafeAreaView>
+        <View className="flex justify-center items-center h-full">
+          <Text>Loading...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView>
       <View className="m-5">
@@ -61,13 +65,16 @@ export default function Home() {
             <Text className="text-lg font-bold">Today</Text>
             <View className="mt-3">
               {matches.map((match, index) => (
-                <TouchableOpacity key={match.id} onPress={handleMatchCardPress}>
+                <TouchableOpacity
+                  key={match.id}
+                  onPress={() => handleMatchCardPress(match.id)}
+                >
                   <MatchCard
-                    teamOneName={match.teamOneName}
-                    teamOneLogo={match.teamOneLogo}
-                    teamTwoName={match.teamTwoName}
-                    teamTwoLogo={match.teamTwoLogo}
-                    time={match.time}
+                    teamOneName={match.participants[0].name}
+                    teamOneLogo={match.participants[0].image_path}
+                    teamTwoName={match.participants[1].name}
+                    teamTwoLogo={match.participants[1].image_path}
+                    time={match.starting_at}
                   />
                   {index !== matches.length - 1 && (
                     <View className="h-[.5px] bg-gray-500 my-2" />
