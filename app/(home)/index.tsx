@@ -1,4 +1,5 @@
 import MatchCard from "@/components/MatchCard";
+import { useFixturesQuery } from "@/redux/service/match/matchApi";
 import { router } from "expo-router";
 import { useState } from "react";
 import { ScrollView, Switch, Text, TouchableOpacity, View } from "react-native";
