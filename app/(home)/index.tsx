@@ -17,7 +17,7 @@ export default function Home() {
 
   const handleMatchCardPress = (id: number) => {
     console.log(id);
-    router.push("/matchDetails" as any);
+    router.push("/matchDetails/");
   };
 
   useEffect(() => {

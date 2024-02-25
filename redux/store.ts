@@ -1,18 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { matchApi } from "./service/match/matchApi";
+import { apiSlice } from "./api/apiSlice";
 import playerSlice from "./features/player/playerSlice";
 import favoriteSlice from "./features/favorite/favoriteSlice";
+import matchSlice from "./features/match/matchSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      [matchApi.reducerPath]: matchApi.reducer,
+      [apiSlice.reducerPath]: apiSlice.reducer,
+      match: matchSlice,
       players: playerSlice,
       favorites: favoriteSlice,
     },
 
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat([matchApi.middleware]),
+      getDefaultMiddleware().concat([apiSlice.middleware]),
   });
 };
 
