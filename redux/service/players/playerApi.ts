@@ -8,6 +8,11 @@ export const playerApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getPlayersById: builder.query({
+      query: (id) => ({
+        url: `players/${id}?include=nationality;position`,
+      }),
+    }),
     search: builder.query({
       query: (query) => ({
         url: `players/search/${query}?include=nationality;position`,
@@ -17,4 +22,5 @@ export const playerApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { usePlayersQuery, useSearchQuery } = playerApi;
+export const { usePlayersQuery, useSearchQuery, useGetPlayersByIdQuery } =
+  playerApi;

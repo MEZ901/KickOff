@@ -21,8 +21,8 @@ export default function Players() {
     }
   }, [isSuccess]);
 
-  const handlePlayerCardPress = (id: string) => {
-    router.push("/playerDetails/");
+  const handlePlayerCardPress = (id: any) => {
+    router.push(`/playerDetails/${id}`);
   };
 
   if (isLoading) {

@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function MatchDetails() {
   const { id } = useLocalSearchParams<{ id?: string }>();
 
-  const { data, isLoading, isSuccess, refetch } = useGetFixtureQuery(id);
+  const { data, isLoading } = useGetFixtureQuery(id);
 
   if (isLoading) {
     return (

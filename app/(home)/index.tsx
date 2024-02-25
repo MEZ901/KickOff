@@ -15,7 +15,7 @@ export default function Home() {
   const toggleSwitch = () =>
     setIsEnabledLive((previousState) => !previousState);
 
-  const handleMatchCardPress = (id: number) => {
+  const handleMatchCardPress = (id: any) => {
     router.push(`/matchDetails/${id}`);
   };
 
