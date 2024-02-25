@@ -1,7 +1,7 @@
-version: "2.4"
+version: "3"
 
 services:
-  kickoff:
+  react_native_app:
     build:
       context: .
       args:
@@ -13,11 +13,6 @@ services:
       - "19006:19006"
       - "19001:19001"
       - "19002:19002"
-    volumes:
-      - .:/opt/app:delegated
-      - ./package.json:/opt/package.json
-      - ./package-lock.json:/opt/package-lock.json
-      - notused:/opt/app/node_modules
     healthcheck:
       disable: true
 
