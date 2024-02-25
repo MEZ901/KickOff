@@ -19,7 +19,7 @@ export default function Players() {
     if (isSuccess) {
       dispatch(StatePlayer(data.data));
     }
-  }, []);
+  }, [isSuccess]);
 
   const handlePlayerCardPress = (id: string) => {
     router.push("/playerDetails/");

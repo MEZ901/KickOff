@@ -16,7 +16,7 @@ export default function Home() {
     setIsEnabledLive((previousState) => !previousState);
 
   const handleMatchCardPress = (id: number) => {
-    router.push("/matchDetails/");
+    router.push(`/matchDetails/${id}`);
   };
 
   useEffect(() => {
