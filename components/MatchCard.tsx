@@ -15,6 +15,12 @@ export default function MatchCard({
   teamTwoLogo,
   time,
 }: MatchCardProps) {
+  const matchDate = new Date(time);
+  const formattedDate = matchDate.toLocaleDateString();
+  const formattedTime = matchDate.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   return (
     <View className="flex flex-row items-center justify-between p-5 my-2 bg-opacity-20 backdrop-blur-md rounded-lg">
       <View className="flex flex-col items-center">
@@ -29,7 +35,8 @@ export default function MatchCard({
 
       <View className="flex flex-col items-center">
         <Text className="text-sm font-extrabold">VS</Text>
-        <Text className="text-sm font-bold text-red-500">{time}</Text>
+        <Text className="text-sm font-bold text-red-500">{formattedDate}</Text>
+        <Text className="text-sm font-bold text-red-500">{formattedTime}</Text>
       </View>
 
       <View className="flex flex-col items-center">

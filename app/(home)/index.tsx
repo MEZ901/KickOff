@@ -16,7 +16,6 @@ export default function Home() {
     setIsEnabledLive((previousState) => !previousState);
 
   const handleMatchCardPress = (id: number) => {
-    console.log(id);
     router.push("/matchDetails/");
   };
 
@@ -61,26 +60,29 @@ export default function Home() {
             marginBottom: 60,
           }}
         >
-          <View className="flex flex-col mt-5">
-            <Text className="text-lg font-bold">Today</Text>
-            <View className="mt-3">
-              {matches.map((match, index) => (
-                <TouchableOpacity
-                  key={match.id}
-                  onPress={() => handleMatchCardPress(match.id)}
-                >
-                  <MatchCard
-                    teamOneName={match.participants[0].name}
-                    teamOneLogo={match.participants[0].image_path}
-                    teamTwoName={match.participants[1].name}
-                    teamTwoLogo={match.participants[1].image_path}
-                    time={match.starting_at}
-                  />
-                  {index !== matches.length - 1 && (
-                    <View className="h-[.5px] bg-gray-500 my-2" />
-                  )}
-                </TouchableOpacity>
-              ))}
+          <View className="flex flex-col mt-3">
+            <View>
+              {isEnabledLive ? (
+                <Text className="text-center mt-3">No live matches</Text>
+              ) : (
+                matches.map((match, index) => (
+                  <TouchableOpacity
+                    key={match.id}
+                    onPress={() => handleMatchCardPress(match.id)}
+                  >
+                    <MatchCard
+                      teamOneName={match.participants[0].name}
+                      teamOneLogo={match.participants[0].image_path}
+                      teamTwoName={match.participants[1].name}
+                      teamTwoLogo={match.participants[1].image_path}
+                      time={match.starting_at}
+                    />
+                    {index !== matches.length - 1 && (
+                      <View className="h-[.5px] bg-gray-500 my-2" />
+                    )}
+                  </TouchableOpacity>
+                ))
+              )}
             </View>
           </View>
         </ScrollView>

@@ -2,8 +2,9 @@ import PlayerCard from "@/components/PlayerCard";
 import SearchPlayer from "@/components/SearchPlayer";
 import { StatePlayer } from "@/redux/features/player/playerSlice";
 import { usePlayersQuery } from "@/redux/service/players/playerApi";
+import { router } from "expo-router";
 import { useEffect } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,6 +20,10 @@ export default function Players() {
       dispatch(StatePlayer(data.data));
     }
   }, []);
+
+  const handlePlayerCardPress = (id: string) => {
+    router.push("/playerDetails/");
+  };
 
   if (isLoading) {
     return (
@@ -43,7 +48,12 @@ export default function Players() {
           <View className="flex flex-col">
             {players ? (
               players.map((player) => (
-                <PlayerCard key={player.id} player={player} />
+                <TouchableOpacity
+                  key={player.id}
+                  onPress={() => handlePlayerCardPress(player.id)}
+                >
+                  <PlayerCard player={player} />
+                </TouchableOpacity>
               ))
             ) : (
               <Text className="text-center mt-3">No players found</Text>
