@@ -48,7 +48,9 @@ export default function MatchDetails() {
               alignItems: "center",
             }}
           >
-            <Text>{data.data.position.name}</Text>
+            <Text>
+              {data.data?.position?.name ? data.data?.position.name : "N/A"}
+            </Text>
           </View>
         </View>
 

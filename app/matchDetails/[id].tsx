@@ -1,5 +1,5 @@
 import { useGetFixtureQuery } from "@/redux/service/match/matchApi";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -20,6 +20,7 @@ export default function MatchDetails() {
 
   return (
     <SafeAreaView>
+      <Stack.Screen options={{ title: data.data.name }} />
       <View>
         <Image
           className="w-full h-[200px] object-cover"
